@@ -6,9 +6,11 @@ function App() {
   const [data, setData] = useState({})
   const [location, setLocation] = useState('')
 
-const cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=f32a76e25378d19c31a14c805ec96939`;
+const cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=f32a76e25378d19c31a14c805ec96939`;
 
 const zipUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${location}&appid=f32a76e25378d19c31a14c805ec96939`;
+
+
 
 const getLocation = (event) => {
   // event.preventDefault()
@@ -25,9 +27,11 @@ console.log('A zip code was entered')
 }
 
 
+
   return (
     <div className="app">
       <div className="container">
+
         <div className="search">
           <input
             className="search"
@@ -44,7 +48,7 @@ console.log('A zip code was entered')
               <h3>{data.name}</h3>
             </div>
             <div className="temperature">
-              {data.main ? <h2>{data.main.temp}°F</h2> : null}
+              {data.main ? <h2>{data.main.temp.toFixed()}°F</h2> : null}
             </div>
           </div>
           <div className="second_bottom">
@@ -70,6 +74,7 @@ console.log('A zip code was entered')
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
