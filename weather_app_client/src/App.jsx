@@ -12,6 +12,13 @@ const zipUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${location}&
 
 const getLocation = (event) => {
   // event.preventDefault()
+  if (event.key ==="Enter") {
+    axios.get(cityUrl).then((response) => {
+      setData(response.data)
+      console.log(response.data)
+    })
+    setLocation('')
+  }
   if (!isNaN(location).length == 5){
 console.log('A zip code was entered')
   }
@@ -23,43 +30,43 @@ console.log('A zip code was entered')
       <div className="container">
         <div className="search">
           <input
-          className="search"
+            className="search"
             value={location}
             onChange={(event) => setLocation(event.target.value)}
             onKeyPress={getLocation}
-            placeholder="Enter name of city"
+            placeholder="Location"
             type="text"
           />
         </div>
         <div className="card">
           <div className="top">
             <div className="location">
-              <h3>Seattle</h3>
+              <h3>{data.name}</h3>
             </div>
             <div className="temperature">
-              <h2>45°F</h2>
+              {data.main ? <h2>{data.main.temp}°F</h2> : null}
             </div>
           </div>
           <div className="second_bottom">
             <div className="detail_label">
-              <p>Condition</p>
+              <h4>Condition</h4>
             </div>
             <div className="humidity_label">
-              <p>Humidity</p>
+              <h4>Humidity</h4>
             </div>
             <div className="wind_label">
-              <p>Wind</p>
+              <h4>Wind</h4>
             </div>
           </div>
           <div className="bottom">
             <div className="details">
-              <p>cloudy</p>
+              {data.main ? <p>{data.weather[0].main}</p> : <p>-</p>}
             </div>
             <div className="humidity">
-              <p>80%</p>
+              {data.main ? <p>{data.main.humidity}%</p> : <p>-</p>}
             </div>
             <div className="wind">
-              <p>15 mph</p>
+              {data.main ? <p>{data.wind.speed} mph</p> : <p>-</p>}
             </div>
           </div>
         </div>
